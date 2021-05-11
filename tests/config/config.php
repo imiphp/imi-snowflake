@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'configs'    => [
     ],
@@ -16,33 +18,17 @@ return [
     // 连接池配置
     'pools'    => [
         'redis_test'    => [
-            'sync'    => [
-                'pool'    => [
-                    'class'        => \Imi\Redis\SyncRedisPool::class,
-                    'config'       => [
-                        'maxResources'    => 128,
-                        'minResources'    => 1,
-                    ],
-                ],
-                'resource'    => [
-                    'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
-                    'port'      => imiGetEnv('REDIS_SERVER_PORT', 6379),
-                    'password'  => imiGetEnv('REDIS_SERVER_PASSWORD'),
+            'pool'    => [
+                'class'        => \Imi\Redis\SyncRedisPool::class,
+                'config'       => [
+                    'maxResources'    => 128,
+                    'minResources'    => 1,
                 ],
             ],
-            'async'    => [
-                'pool'    => [
-                    'class'        => \Imi\Redis\CoroutineRedisPool::class,
-                    'config'       => [
-                        'maxResources'    => 128,
-                        'minResources'    => 1,
-                    ],
-                ],
-                'resource'    => [
-                    'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
-                    'port'      => imiGetEnv('REDIS_SERVER_PORT', 6379),
-                    'password'  => imiGetEnv('REDIS_SERVER_PASSWORD'),
-                ],
+            'resource'    => [
+                'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
+                'port'      => imiGetEnv('REDIS_SERVER_PORT', 6379),
+                'password'  => imiGetEnv('REDIS_SERVER_PASSWORD'),
             ],
         ],
     ],
@@ -52,20 +38,6 @@ return [
         'defaultPool'   => 'redis_test',
     ],
     'beans'    => [
-        'Logger'            => [
-            'exHandlers'    => [
-                [
-                    'class'     => \Imi\Log\Handler\Console::class,
-                    'options'   => [
-                        'levels'        => [
-                            'Test',
-                        ],
-                        'format'         => '{message}',
-                        'logCacheNumber' => 10240,
-                    ],
-                ],
-            ],
-        ],
         'JWT'   => [
             'list'  => [
                 'a' => [

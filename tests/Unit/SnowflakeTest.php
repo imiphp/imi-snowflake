@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imi\Snowflake\Test;
 
 use Imi\Snowflake\SnowflakeUtil;
@@ -13,7 +15,7 @@ class SnowflakeTest extends TestCase
         $this->assertTrue(\strlen(SnowflakeUtil::id('testBasic')) <= 19);
     }
 
-    public function testWorkIDAndDataCenterId(): void
+    public function testWorkIdAndDataCenterId(): void
     {
         $this->assertTrue(!empty(SnowflakeUtil::id('test1')));
         $this->assertTrue(\strlen(SnowflakeUtil::id('test1')) <= 19);

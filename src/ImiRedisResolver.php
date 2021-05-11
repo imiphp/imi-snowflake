@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imi\Snowflake;
 
 use Godruoyi\Snowflake\SequenceResolver;
@@ -9,21 +11,17 @@ class ImiRedisResolver implements SequenceResolver
 {
     /**
      * The cache prefix.
-     *
-     * @var string
      */
-    protected $prefix;
+    protected string $prefix = '';
 
     /**
      * Redis 连接池名称.
      *
      * 为 NULL 则使用默认连接池
-     *
-     * @var string|null
      */
-    protected $redisPool;
+    protected ?string $redisPool = null;
 
-    const SEQUENCE_LUA = <<<LUA
+    public const SEQUENCE_LUA = <<<LUA
 if(redis.call('exists',KEYS[1])<1 and redis.call('psetex',KEYS[1],ARGV[2],ARGV[1]))
 then
     return 0
@@ -53,12 +51,8 @@ LUA;
 
     /**
      * Set cacge prefix.
-     *
-     * @param string $prefix
-     *
-     * @return self
      */
-    public function setCachePrefix(string $prefix)
+    public function setCachePrefix(string $prefix): self
     {
         $this->prefix = $prefix;
 
