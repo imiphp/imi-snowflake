@@ -1,4 +1,5 @@
 <?php
+
 namespace Imi\Snowflake;
 
 use Godruoyi\Snowflake\SequenceResolver;
@@ -14,8 +15,8 @@ class ImiRedisResolver implements SequenceResolver
     protected $prefix;
 
     /**
-     * Redis 连接池名称
-     * 
+     * Redis 连接池名称.
+     *
      * 为 NULL 则使用默认连接池
      *
      * @var string|null
@@ -42,10 +43,11 @@ LUA;
     public function sequence(int $currentTime)
     {
         $redis = RedisManager::getInstance($this->redisPool);
-        if(!$redis)
+        if (!$redis)
         {
             throw new \RuntimeException('Get redis instance failed');
         }
+
         return $redis->evalEx(static::SEQUENCE_LUA, [$this->prefix . $currentTime, 1, 1000], 1);
     }
 
@@ -53,6 +55,8 @@ LUA;
      * Set cacge prefix.
      *
      * @param string $prefix
+     *
+     * @return self
      */
     public function setCachePrefix(string $prefix)
     {
@@ -60,5 +64,4 @@ LUA;
 
         return $this;
     }
-
 }

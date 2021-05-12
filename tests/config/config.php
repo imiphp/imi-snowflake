@@ -1,118 +1,115 @@
 <?php
 
-use Imi\RequestContext;
-
 return [
-    'configs'    =>    [
+    'configs'    => [
     ],
     // bean扫描目录
-    'beanScan'    =>    [
+    'beanScan'    => [
         'Imi\Snowflake\Test\Test',
     ],
-    'components'    =>  [
+    'components'    => [
         // 引入本组件
-        'snowflake'    =>  'Imi\Snowflake',
+        'snowflake'    => 'Imi\Snowflake',
     ],
-    'ignoreNamespace'   =>  [
+    'ignoreNamespace'   => [
     ],
     // 连接池配置
-    'pools'    =>    [
-        'redis_test'    =>    [
-            'sync'    =>    [
-                'pool'    =>    [
-                    'class'        =>    \Imi\Redis\SyncRedisPool::class,
-                    'config'    =>    [
-                        'maxResources'    =>    128,
-                        'minResources'    =>    1,
+    'pools'    => [
+        'redis_test'    => [
+            'sync'    => [
+                'pool'    => [
+                    'class'        => \Imi\Redis\SyncRedisPool::class,
+                    'config'       => [
+                        'maxResources'    => 128,
+                        'minResources'    => 1,
                     ],
                 ],
-                'resource'    =>    [
+                'resource'    => [
                     'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
                     'port'      => imiGetEnv('REDIS_SERVER_PORT', 6379),
                     'password'  => imiGetEnv('REDIS_SERVER_PASSWORD'),
-                ]
+                ],
             ],
-            'async'    =>    [
-                'pool'    =>    [
-                    'class'        =>    \Imi\Redis\CoroutineRedisPool::class,
-                    'config'    =>    [
-                        'maxResources'    =>    128,
-                        'minResources'    =>    1,
+            'async'    => [
+                'pool'    => [
+                    'class'        => \Imi\Redis\CoroutineRedisPool::class,
+                    'config'       => [
+                        'maxResources'    => 128,
+                        'minResources'    => 1,
                     ],
                 ],
-                'resource'    =>    [
+                'resource'    => [
                     'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
                     'port'      => imiGetEnv('REDIS_SERVER_PORT', 6379),
                     'password'  => imiGetEnv('REDIS_SERVER_PASSWORD'),
-                ]
+                ],
             ],
         ],
     ],
     // redis 配置
-    'redis' =>  [
+    'redis' => [
         // 数默认连接池名
-        'defaultPool'   =>  'redis_test',
+        'defaultPool'   => 'redis_test',
     ],
-    'beans'    =>    [
-        'Logger'            =>  [
-            'exHandlers'    =>  [
+    'beans'    => [
+        'Logger'            => [
+            'exHandlers'    => [
                 [
                     'class'     => \Imi\Log\Handler\Console::class,
                     'options'   => [
                         'levels'        => [
                             'Test',
                         ],
-                        'format'        => '{message}',
-                        'logCacheNumber'=> 10240,
+                        'format'         => '{message}',
+                        'logCacheNumber' => 10240,
                     ],
                 ],
             ],
         ],
-        'JWT'   =>  [
-            'list'  =>  [
-                'a' =>  [
-                    'audience'  =>  'audience_a',
-                    'subject'   =>  'subject_a',
-                    'expires'   =>  86400,
-                    'issuer'    =>  'issuer_a',
-                    'headers'   =>  [
-                        'a' =>  '1',
-                        'b' =>  '2',
+        'JWT'   => [
+            'list'  => [
+                'a' => [
+                    'audience'  => 'audience_a',
+                    'subject'   => 'subject_a',
+                    'expires'   => 86400,
+                    'issuer'    => 'issuer_a',
+                    'headers'   => [
+                        'a' => '1',
+                        'b' => '2',
                     ],
-                    'tokenHandler'  =>  function(){
+                    'tokenHandler'  => function () {
                         return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImEiOiIxIiwiYiI6IjIifQ.eyJhdWQiOiJhdWRpZW5jZV9hIiwic3ViIjoic3ViamVjdF9hIiwiZXhwIjoxODkzMjkxNTE1LCJpc3MiOiJpc3N1ZXJfYSIsIm5iZiI6MCwianRpIjoiIiwiaWF0IjoxNTc3OTMxNTE1LCJkYXRhIjp7Im1lbWJlcklkIjoxOTI2MDgxN319.-tXlyj1BcVD8GJIE2nQdTPULVpZFD0h5BIQdx_X943E';
                     },
-                    'privateKey'    =>  '123456',
-                    'publicKey'     =>  '123456',
+                    'privateKey'    => '123456',
+                    'publicKey'     => '123456',
                 ],
             ],
         ],
-        'Snowflake' =>  [
-            'list'  =>  [
+        'Snowflake' => [
+            'list'  => [
                 'testBasic' => [
-                    
                 ],
-                'test1' =>  [
+                'test1' => [
                     'datacenterId'   => -1,
                     'workerId'       => -1,
                 ],
-                'test2' =>  [
+                'test2' => [
                     'datacenterId'   => 33,
                     'workerId'       => -1,
                 ],
-                'test3' =>  [
+                'test3' => [
                     'datacenterId'   => 1,
                     'workerId'       => 2,
                 ],
-                'test4' =>  [
+                'test4' => [
                     'datacenterId'   => 999,
                     'workerId'       => 20,
                 ],
-                'testBatch' =>  [
+                'testBatch' => [
                     'datacenterId'   => 999,
                     'workerId'       => 20,
                 ],
-                'testParseId' =>  [
+                'testParseId' => [
                     'datacenterId'   => 999,
                     'workerId'       => 20,
                 ],

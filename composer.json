@@ -6,22 +6,16 @@
     "require": {
         "godruoyi/php-snowflake": "^1.0"
     },
-    "require-dev": {
-        "yurunsoft/imi": "dev-dev",
-        "phpunit/phpunit": "^7"
-    },
+    "require-dev": {},
     "autoload": {
-        "psr-4" : {
-            "Imi\\Snowflake\\" : "src/"
+        "psr-4": {
+            "Imi\\Snowflake\\": "src/"
         }
     },
     "autoload-dev": {
-        "psr-4" : {
-            "Imi\\Snowflake\\Test\\" : "tests/"
+        "psr-4": {
+            "Imi\\Snowflake\\Test\\": "tests/"
         }
     },
-    "scripts": {
-      "test": "./tests/run",
-      "install-test": "php --ri swoole && composer install composer test"
-    }
+    "scripts": {}
 }

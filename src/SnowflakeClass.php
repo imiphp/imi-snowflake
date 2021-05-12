@@ -1,4 +1,5 @@
 <?php
+
 namespace Imi\Snowflake;
 
 use Godruoyi\Snowflake\Snowflake;
@@ -8,7 +9,7 @@ class SnowflakeClass extends Snowflake
 {
     public function __construct(int $datacenter = null, int $workerid = null)
     {
-        if(null === $workerid)
+        if (null === $workerid)
         {
             $workerid = Worker::getWorkerID();
         }
@@ -24,5 +25,4 @@ class SnowflakeClass extends Snowflake
     {
         return $this->datacenter;
     }
-
 }
