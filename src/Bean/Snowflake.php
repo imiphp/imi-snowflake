@@ -1,4 +1,5 @@
 <?php
+
 namespace Imi\Snowflake\Bean;
 
 use Imi\Bean\Annotation\Bean;
@@ -9,8 +10,8 @@ use Imi\Bean\Annotation\Bean;
 class Snowflake
 {
     /**
-     * 生成器列表
-     * 
+     * 生成器列表.
+     *
      * 例：
      * [
      *     'order' => [
@@ -26,24 +27,24 @@ class Snowflake
     protected $list = [];
 
     /**
-     * Get List
+     * Get List.
      *
      * @return array
-     */ 
+     */
     public function getList()
     {
         return $this->list;
     }
 
     /**
-     * 使用名称获取配置
+     * 使用名称获取配置.
      *
      * @param string $name
+     *
      * @return array
      */
     public function getByName(string $name): ?array
     {
         return $this->list[$name] ?? null;
     }
-
 }
