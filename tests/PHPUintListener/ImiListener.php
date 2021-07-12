@@ -1,18 +1,22 @@
 <?php
+
 namespace Imi\Snowflake\Test\PHPUintListener;
 
 use Imi\App;
-use Imi\Tool\Tool;
 use Imi\Event\Event;
 use Imi\Event\EventParam;
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\Warning;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\TestListener;
+use Imi\Tool\Tool;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Framework\Warning;
 
 class ImiListener implements TestListener
 {
+    /**
+     * @var bool
+     */
     private $isLoadedImi = false;
 
     public function __construct()
@@ -80,23 +84,23 @@ class ImiListener implements TestListener
      */
     public function startTest(Test $test): void
     {
-        if(!$this->isLoadedImi)
+        if (!$this->isLoadedImi)
         {
-            Event::on('IMI.INIT_TOOL', function(EventParam $param){
+            Event::on('IMI.INIT_TOOL', function (EventParam $param) {
                 $data = $param->getData();
                 $data['skip'] = true;
                 Tool::init();
                 $this->isLoadedImi = true;
             });
-            Event::on('IMI.INITED', function(EventParam $param){
+            Event::on('IMI.INITED', function (EventParam $param) {
                 App::initWorker();
-                go(function() use($param){
+                go(function () use ($param) {
                     $param->stopPropagation();
                 });
             }, 1);
-            echo 'init imi...', PHP_EOL;
+            echo 'init imi...', \PHP_EOL;
             App::run('Imi\Snowflake\Test');
-            echo 'imi inited!', PHP_EOL;
+            echo 'imi inited!', \PHP_EOL;
         }
     }
 
@@ -105,6 +109,5 @@ class ImiListener implements TestListener
      */
     public function endTest(Test $test, float $time): void
     {
-        
     }
 }
